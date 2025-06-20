@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation de commande - Précommande Chine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Confirmation page specific styles */
+        .confirmation-container {
+            max-width: 800px;
+            margin: 6rem auto 2rem;
+            padding: 0 1rem;
+        }
+
+        .confirmation-card {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+
+        .confirmation-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .confirmation-message {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .order-details {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .details-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-medium);
+        }
+
+        .details-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .details-title {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .details-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            background-color: var(--gray-light);
+            border-radius: 5px;
+        }
+
+        .delivery-info {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--gray-light);
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .delivery-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        .delivery-date {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .back-home {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: 2rem;
+            transition: var(--transition);
+        }
+
+        .back-home:hover {
+            background-color: var(--accent-color);
+        }
+
+        .whatsapp-notification {
+            background-color: #25D366;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .whatsapp-icon {
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <h1>Précommande Chine</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="catalog.html">Catalogue</a></li>
+                <li><a href="cart.html">Panier</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="confirmation-container">
+        <div class="confirmation-card">
+            <div class="success-icon">✅</div>
+            <h1 class="confirmation-title">Commande confirmée !</h1>
+            <p class="confirmation-message">
+                Merci pour votre commande. Un message WhatsApp vous a été envoyé avec les détails de votre commande.
+            </p>
+            <div class="whatsapp-notification">
+                <span class="whatsapp-icon">📱</span>
+                Vérifiez vos messages WhatsApp pour le suivi de votre commande
+            </div>
+        </div>
+
+        <div class="order-details">
+            <div class="details-section">
+                <h2 class="details-title">Détails de la commande</h2>
+                <div class="details-grid" id="order-summary">
+                    <!-- Order details will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="details-section">
+                <h2 class="details-title">Livraison</h2>
+                <div class="delivery-info">
+                    <p>Mode de livraison: <span id="shipping-method"></span></p>
+                    <p>Date de livraison estimée:</p>
+                    <p class="delivery-date" id="delivery-date"></p>
+                </div>
+            </div>
+
+            <div class="details-section" style="text-align: center;">
+                <a href="index.html" class="back-home">Retour à l'accueil</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>À propos</h3>
+                <p>Précommande Chine vous permet d'importer facilement des produits de qualité directement de Chine.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: contact@precommande-chine.com</p>
+                <p>Tél: +123 456 789</p>
+            </div>
+            <div class="footer-section">
+                <h3>Livraison</h3>
+                <p>Par avion: 2 semaines</p>
+                <p>Par bateau: 2 mois</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Précommande Chine. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get order details from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderNumber = urlParams.get('order') || Math.floor(Math.random() * 1000000);
+            const shippingMethod = urlParams.get('shipping') || 'air';
+
+            // Calculate estimated delivery date
+            const today = new Date();
+            const deliveryDate = new Date(today);
+            deliveryDate.setDate(today.getDate() + (shippingMethod === 'air' ? 14 : 60));
+
+            // Update shipping information
+            document.getElementById('shipping-method').textContent = 
+                shippingMethod === 'air' ? 'Par avion' : 'Par bateau';
+            document.getElementById('delivery-date').textContent = 
+                deliveryDate.toLocaleDateString('fr-FR', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+
+            // Populate order summary
+            const orderSummary = document.getElementById('order-summary');
+            orderSummary.innerHTML = `
+                <div class="details-item">
+                    <span>Numéro de commande:</span>
+                    <span>#${orderNumber}</span>
+                </div>
+                <div class="details-item">
+                    <span>Date de commande:</span>
+                    <span>${today.toLocaleDateString('fr-FR')}</span>
+                </div>
+                <div class="details-item">
+                    <span>Mode de livraison:</span>
+                    <span>${shippingMethod === 'air' ? 'Par avion' : 'Par bateau'}</span>
+                </div>
+                <div class="details-item">
+                    <span>Délai de livraison:</span>
+                    <span>${shippingMethod === 'air' ? '2 semaines' : '2 mois'}</span>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
