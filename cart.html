@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panier - Précommande Chine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Cart specific styles */
+        .cart-container {
+            max-width: 1200px;
+            margin: 6rem auto 2rem;
+            padding: 0 1rem;
+        }
+
+        .cart-title {
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 3rem;
+            background-color: var(--gray-light);
+            border-radius: 10px;
+        }
+
+        .cart-empty h2 {
+            margin-bottom: 1rem;
+        }
+
+        .cart-empty a {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .cart-empty a:hover {
+            background-color: var(--accent-color);
+        }
+
+        .cart-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .cart-items {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-medium);
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .item-details h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .item-options {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-price {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-btn {
+            padding: 0.25rem 0.5rem;
+            background-color: var(--gray-light);
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .remove-item {
+            color: #dc3545;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+        }
+
+        .cart-summary {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+
+        .summary-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .summary-total {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--gray-medium);
+        }
+
+        .checkout-button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1.5rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .checkout-button:hover {
+            background-color: var(--accent-color);
+        }
+
+        .payment-info {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: var(--gray-light);
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .cart-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-item {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .item-image {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <h1>Précommande Chine</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="catalog.html">Catalogue</a></li>
+                <li><a href="cart.html" class="active">Panier</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="cart-container">
+        <h1 class="cart-title">Votre Panier</h1>
+        
+        <div id="cart-content">
+            <!-- Content will be dynamically populated by JavaScript -->
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>À propos</h3>
+                <p>Précommande Chine vous permet d'importer facilement des produits de qualité directement de Chine.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: contact@precommande-chine.com</p>
+                <p>Tél: +123 456 789</p>
+            </div>
+            <div class="footer-section">
+                <h3>Livraison</h3>
+                <p>Par avion: 2 semaines</p>
+                <p>Par bateau: 2 mois</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Précommande Chine. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCart();
+        });
+
+        function renderCart() {
+            const cartContent = document.getElementById('cart-content');
+            
+            if (cart.length === 0) {
+                cartContent.innerHTML = `
+                    <div class="cart-empty">
+                        <h2>Votre panier est vide</h2>
+                        <p>Découvrez nos produits et commencez vos achats!</p>
+                        <a href="catalog.html">Voir le catalogue</a>
+                    </div>
+                `;
+                return;
+            }
+
+            let subtotal = 0;
+            const cartHTML = `
+                <div class="cart-content">
+                    <div class="cart-items">
+                        ${cart.map((item, index) => {
+                            const product = products.find(p => p.id === item.id);
+                            const itemTotal = item.price * item.quantity;
+                            subtotal += itemTotal;
+                            
+                            return `
+                                <div class="cart-item">
+                                    <img src="${product.image}" alt="${product.name}" class="item-image">
+                                    <div class="item-details">
+                                        <h3>${product.name}</h3>
+                                        <p class="item-options">
+                                            ${Object.entries(item.options).map(([key, value]) => 
+                                                `${key}: ${value}`
+                                            ).join(', ')}
+                                        </p>
+                                        <p class="item-price">${formatPrice(item.price)}</p>
+                                        <div class="item-quantity">
+                                            <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, -1)">-</button>
+                                            <span>${item.quantity}</span>
+                                            <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, 1)">+</button>
+                                        </div>
+                                    </div>
+                                    <button class="remove-item" onclick="removeCartItem(${index})">Supprimer</button>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="cart-summary">
+                        <h2 class="summary-title">Récapitulatif</h2>
+                        <div class="summary-line">
+                            <span>Sous-total:</span>
+                            <span>${formatPrice(subtotal)}</span>
+                        </div>
+                        <div class="summary-total">
+                            <span>Total:</span>
+                            <span>${formatPrice(subtotal)}</span>
+                        </div>
+                        <div class="payment-info">
+                            <p>💡 Paiement initial: ${formatPrice(subtotal / 2)} (50%)</p>
+                        </div>
+                        <a href="shipping.html" class="checkout-button">Procéder à la livraison</a>
+                    </div>
+                </div>
+            `;
+
+            cartContent.innerHTML = cartHTML;
+        }
+
+        function updateCartItemQuantity(index, change) {
+            const item = cart[index];
+            const newQuantity = Math.max(1, item.quantity + change);
+            
+            if (newQuantity !== item.quantity) {
+                cart[index].quantity = newQuantity;
+                saveCart();
+                renderCart();
+            }
+        }
+
+        function removeCartItem(index) {
+            cart.splice(index, 1);
+            saveCart();
+            renderCart();
+        }
+    </script>
+</body>
+</html>
