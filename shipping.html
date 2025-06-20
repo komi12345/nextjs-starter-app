@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sélection de la livraison - Précommande Chine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Shipping page specific styles */
+        .shipping-container {
+            max-width: 1200px;
+            margin: 6rem auto 2rem;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .shipping-options {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .shipping-title {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .shipping-method {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 2px solid var(--gray-medium);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .shipping-method:hover {
+            border-color: var(--primary-color);
+        }
+
+        .shipping-method.selected {
+            border-color: var(--primary-color);
+            background-color: var(--gray-light);
+        }
+
+        .method-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .method-icon {
+            font-size: 1.5rem;
+        }
+
+        .method-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .method-details {
+            margin-left: 2.5rem;
+            color: #666;
+        }
+
+        .method-input {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: var(--secondary-color);
+            border-radius: 5px;
+        }
+
+        .method-input label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .method-input input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-medium);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .order-summary {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+
+        .summary-title {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-items {
+            margin-bottom: 2rem;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-medium);
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .summary-total {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--gray-medium);
+        }
+
+        .proceed-button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .proceed-button:hover {
+            background-color: var(--accent-color);
+        }
+
+        .proceed-button:disabled {
+            background-color: var(--gray-medium);
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            color: #dc3545;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .shipping-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <h1>Précommande Chine</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="catalog.html">Catalogue</a></li>
+                <li><a href="cart.html">Panier</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="shipping-container">
+        <div class="shipping-options">
+            <h1 class="shipping-title">Mode de livraison</h1>
+            
+            <div class="shipping-method" onclick="selectMethod('air')" id="air-method">
+                <div class="method-header">
+                    <span class="method-icon">✈️</span>
+                    <h2 class="method-title">Par avion</h2>
+                </div>
+                <div class="method-details">
+                    <p>Délai de livraison: 2 semaines</p>
+                    <p>Prix: 15,000 FCFA/kg</p>
+                    <div class="method-input" id="air-input">
+                        <label for="weight">Poids total (kg)</label>
+                        <input type="number" id="weight" min="0.1" step="0.1" onchange="calculateShipping()">
+                        <p class="error-message" id="weight-error">Veuillez entrer un poids valide</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shipping-method" onclick="selectMethod('sea')" id="sea-method">
+                <div class="method-header">
+                    <span class="method-icon">🚢</span>
+                    <h2 class="method-title">Par bateau</h2>
+                </div>
+                <div class="method-details">
+                    <p>Délai de livraison: 2 mois</p>
+                    <p>Prix: 5,000 FCFA/m³</p>
+                    <div class="method-input" id="sea-input">
+                        <label for="volume">Volume total (m³)</label>
+                        <input type="number" id="volume" min="0.1" step="0.1" onchange="calculateShipping()">
+                        <p class="error-message" id="volume-error">Veuillez entrer un volume valide</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-summary">
+            <h2 class="summary-title">Récapitulatif de la commande</h2>
+            
+            <div class="summary-items" id="summary-items">
+                <!-- Items will be populated by JavaScript -->
+            </div>
+
+            <div class="summary-line">
+                <span>Sous-total:</span>
+                <span id="subtotal">0 FCFA</span>
+            </div>
+            <div class="summary-line">
+                <span>Frais de livraison:</span>
+                <span id="shipping-cost">0 FCFA</span>
+            </div>
+            <div class="summary-total">
+                <span>Total:</span>
+                <span id="total">0 FCFA</span>
+            </div>
+            <div class="summary-line" style="color: #666;">
+                <span>Acompte (50%):</span>
+                <span id="deposit">0 FCFA</span>
+            </div>
+
+            <button class="proceed-button" onclick="proceedToPayment()" disabled id="proceed-button">
+                Procéder au paiement
+            </button>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>À propos</h3>
+                <p>Précommande Chine vous permet d'importer facilement des produits de qualité directement de Chine.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: contact@precommande-chine.com</p>
+                <p>Tél: +123 456 789</p>
+            </div>
+            <div class="footer-section">
+                <h3>Livraison</h3>
+                <p>Par avion: 2 semaines</p>
+                <p>Par bateau: 2 mois</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Précommande Chine. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        let selectedMethod = null;
+        let subtotalAmount = 0;
+        let shippingAmount = 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Calculate initial subtotal and render items
+            subtotalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            renderOrderSummary();
+            updateTotals();
+        });
+
+        function selectMethod(method) {
+            selectedMethod = method;
+            
+            // Update UI
+            document.getElementById('air-method').classList.toggle('selected', method === 'air');
+            document.getElementById('sea-method').classList.toggle('selected', method === 'sea');
+            
+            // Reset inputs
+            document.getElementById('weight').value = '';
+            document.getElementById('volume').value = '';
+            
+            // Show/hide relevant inputs
+            document.getElementById('air-input').style.display = method === 'air' ? 'block' : 'none';
+            document.getElementById('sea-input').style.display = method === 'sea' ? 'block' : 'none';
+            
+            calculateShipping();
+        }
+
+        function calculateShipping() {
+            const weightInput = document.getElementById('weight');
+            const volumeInput = document.getElementById('volume');
+            const proceedButton = document.getElementById('proceed-button');
+            
+            let isValid = false;
+            shippingAmount = 0;
+
+            if (selectedMethod === 'air') {
+                const weight = parseFloat(weightInput.value);
+                if (weight && weight > 0) {
+                    shippingAmount = weight * SHIPPING_RATES.air;
+                    isValid = true;
+                    document.getElementById('weight-error').style.display = 'none';
+                } else {
+                    document.getElementById('weight-error').style.display = 'block';
+                }
+            } else if (selectedMethod === 'sea') {
+                const volume = parseFloat(volumeInput.value);
+                if (volume && volume > 0) {
+                    shippingAmount = volume * SHIPPING_RATES.sea;
+                    isValid = true;
+                    document.getElementById('volume-error').style.display = 'none';
+                } else {
+                    document.getElementById('volume-error').style.display = 'block';
+                }
+            }
+
+            proceedButton.disabled = !isValid;
+            updateTotals();
+        }
+
+        function renderOrderSummary() {
+            const summaryItems = document.getElementById('summary-items');
+            summaryItems.innerHTML = cart.map(item => {
+                const product = products.find(p => p.id === item.id);
+                return `
+                    <div class="summary-item">
+                        <span>${product.name} x${item.quantity}</span>
+                        <span>${formatPrice(item.price * item.quantity)}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateTotals() {
+            const total = subtotalAmount + shippingAmount;
+            const deposit = total / 2;
+
+            document.getElementById('subtotal').textContent = formatPrice(subtotalAmount);
+            document.getElementById('shipping-cost').textContent = formatPrice(shippingAmount);
+            document.getElementById('total').textContent = formatPrice(total);
+            document.getElementById('deposit').textContent = formatPrice(deposit);
+        }
+
+        function proceedToPayment() {
+            // Save shipping details to localStorage
+            const shippingDetails = {
+                method: selectedMethod,
+                cost: shippingAmount,
+                weight: selectedMethod === 'air' ? parseFloat(document.getElementById('weight').value) : null,
+                volume: selectedMethod === 'sea' ? parseFloat(document.getElementById('volume').value) : null
+            };
+            localStorage.setItem('shippingDetails', JSON.stringify(shippingDetails));
+            
+            // Redirect to payment page
+            window.location.href = 'payment.html';
+        }
+
+        // Initialize the first method by default
+        selectMethod('air');
+    </script>
+</body>
+</html>
