@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogue - Précommande Chine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Additional catalog-specific styles */
+        .catalog-container {
+            max-width: 1200px;
+            margin: 6rem auto 2rem;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+
+        .filters {
+            background-color: var(--gray-light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            height: fit-content;
+        }
+
+        .filters h2 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .filter-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-group h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .filter-options label {
+            display: block;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+
+        .filter-options input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+
+        .products-container h1 {
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .product-card {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .price {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
+        }
+
+        .product-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .product-link:hover {
+            background-color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .catalog-container {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                position: sticky;
+                top: 5rem;
+                z-index: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <h1>Précommande Chine</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="catalog.html" class="active">Catalogue</a></li>
+                <li><a href="cart.html">Panier</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="catalog-container">
+        <aside class="filters">
+            <h2>Filtres</h2>
+            <div class="filter-group">
+                <h3>Catégories</h3>
+                <div class="filter-options" id="category-filters">
+                    <label>
+                        <input type="checkbox" value="electronique"> Électronique
+                    </label>
+                    <label>
+                        <input type="checkbox" value="mode"> Mode
+                    </label>
+                    <label>
+                        <input type="checkbox" value="maison"> Maison
+                    </label>
+                    <label>
+                        <input type="checkbox" value="jouets"> Jouets
+                    </label>
+                </div>
+            </div>
+            <div class="filter-group">
+                <h3>Prix</h3>
+                <div class="filter-options">
+                    <label>
+                        <input type="checkbox" value="0-50000"> 0 - 50,000 FCFA
+                    </label>
+                    <label>
+                        <input type="checkbox" value="50000-100000"> 50,000 - 100,000 FCFA
+                    </label>
+                    <label>
+                        <input type="checkbox" value="100000+"> Plus de 100,000 FCFA
+                    </label>
+                </div>
+            </div>
+        </aside>
+
+        <section class="products-container">
+            <h1>Nos Produits</h1>
+            <div class="products-grid" id="products-grid">
+                <!-- Products will be dynamically populated by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>À propos</h3>
+                <p>Précommande Chine vous permet d'importer facilement des produits de qualité directement de Chine.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: contact@precommande-chine.com</p>
+                <p>Tél: +123 456 789</p>
+            </div>
+            <div class="footer-section">
+                <h3>Livraison</h3>
+                <p>Par avion: 2 semaines</p>
+                <p>Par bateau: 2 mois</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Précommande Chine. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Catalog-specific JavaScript
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryParam = urlParams.get('category');
+
+            // If category is specified in URL, check the corresponding checkbox
+            if (categoryParam) {
+                const checkbox = document.querySelector(`input[value="${categoryParam}"]`);
+                if (checkbox) checkbox.checked = true;
+            }
+
+            // Initialize products display
+            updateProductsDisplay();
+
+            // Add event listeners to filters
+            document.querySelectorAll('.filter-options input').forEach(input => {
+                input.addEventListener('change', updateProductsDisplay);
+            });
+        });
+
+        function updateProductsDisplay() {
+            const productsGrid = document.getElementById('products-grid');
+            const selectedCategories = Array.from(document.querySelectorAll('#category-filters input:checked'))
+                .map(input => input.value);
+            
+            const selectedPriceRanges = Array.from(document.querySelectorAll('.filter-options input[value*="-"]:checked'))
+                .map(input => {
+                    const [min, max] = input.value.split('-').map(Number);
+                    return { min, max };
+                });
+
+            // Filter products based on selected criteria
+            let filteredProducts = products;
+            
+            if (selectedCategories.length > 0) {
+                filteredProducts = filteredProducts.filter(product => 
+                    selectedCategories.includes(product.category)
+                );
+            }
+
+            if (selectedPriceRanges.length > 0) {
+                filteredProducts = filteredProducts.filter(product => 
+                    selectedPriceRanges.some(range => 
+                        product.price >= range.min && 
+                        (range.max ? product.price <= range.max : true)
+                    )
+                );
+            }
+
+            // Clear and repopulate products grid
+            productsGrid.innerHTML = '';
+            
+            if (filteredProducts.length === 0) {
+                productsGrid.innerHTML = '<p>Aucun produit ne correspond à vos critères.</p>';
+                return;
+            }
+
+            filteredProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <p class="price">${formatPrice(product.price)}</p>
+                        <a href="product.html?id=${product.id}" class="product-link">Voir détails</a>
+                    </div>
+                `;
+                productsGrid.appendChild(productCard);
+            });
+        }
+    </script>
+</body>
+</html>
