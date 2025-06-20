@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Produit - Précommande Chine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Product detail specific styles */
+        .product-detail-container {
+            max-width: 1200px;
+            margin: 6rem auto 2rem;
+            padding: 0 1rem;
+        }
+
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-images {
+            padding: 2rem;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .product-description {
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .product-options {
+            margin-bottom: 2rem;
+        }
+
+        .option-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .option-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .option-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-medium);
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .quantity-input {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quantity-input button {
+            padding: 0.5rem 1rem;
+            background-color: var(--gray-light);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .quantity-input input {
+            width: 60px;
+            padding: 0.5rem;
+            text-align: center;
+            border: 1px solid var(--gray-medium);
+            border-radius: 5px;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--accent-color);
+        }
+
+        .shipping-info {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: var(--gray-light);
+            border-radius: 10px;
+        }
+
+        .shipping-info h3 {
+            margin-bottom: 1rem;
+        }
+
+        .shipping-info ul {
+            list-style: none;
+        }
+
+        .shipping-info li {
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+
+            .main-image {
+                height: 300px;
+            }
+        }
+
+        /* Success message styles */
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <h1>Précommande Chine</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="catalog.html">Catalogue</a></li>
+                <li><a href="cart.html">Panier</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="product-detail-container">
+        <div class="product-detail">
+            <div class="product-images">
+                <img src="" alt="" class="main-image" id="main-image">
+            </div>
+            <div class="product-info">
+                <h1 class="product-title" id="product-title"></h1>
+                <p class="product-price" id="product-price"></p>
+                <p class="product-description" id="product-description"></p>
+                
+                <div class="product-options" id="product-options">
+                    <!-- Options will be dynamically added here -->
+                </div>
+
+                <div class="quantity-input">
+                    <label for="quantity">Quantité:</label>
+                    <button onclick="updateQuantity(-1)">-</button>
+                    <input type="number" id="quantity" value="1" min="1">
+                    <button onclick="updateQuantity(1)">+</button>
+                </div>
+
+                <button class="add-to-cart" onclick="handleAddToCart()">
+                    Ajouter au panier
+                </button>
+
+                <div class="shipping-info">
+                    <h3>Information de livraison</h3>
+                    <ul>
+                        <li>✈️ Par avion: Livraison en 2 semaines</li>
+                        <li>🚢 Par bateau: Livraison en 2 mois</li>
+                        <li>💰 Paiement: 50% à la commande</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="success-message" id="success-message">
+        Produit ajouté au panier !
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>À propos</h3>
+                <p>Précommande Chine vous permet d'importer facilement des produits de qualité directement de Chine.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: contact@precommande-chine.com</p>
+                <p>Tél: +123 456 789</p>
+            </div>
+            <div class="footer-section">
+                <h3>Livraison</h3>
+                <p>Par avion: 2 semaines</p>
+                <p>Par bateau: 2 mois</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Précommande Chine. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        let currentProduct = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = parseInt(urlParams.get('id'));
+            
+            currentProduct = products.find(p => p.id === productId);
+            
+            if (!currentProduct) {
+                window.location.href = 'catalog.html';
+                return;
+            }
+
+            // Update page title
+            document.title = `${currentProduct.name} - Précommande Chine`;
+
+            // Populate product details
+            document.getElementById('main-image').src = currentProduct.image;
+            document.getElementById('main-image').alt = currentProduct.name;
+            document.getElementById('product-title').textContent = currentProduct.name;
+            document.getElementById('product-price').textContent = formatPrice(currentProduct.price);
+            document.getElementById('product-description').textContent = currentProduct.description;
+
+            // Populate options
+            const optionsContainer = document.getElementById('product-options');
+            for (const [key, values] of Object.entries(currentProduct.options)) {
+                const optionGroup = document.createElement('div');
+                optionGroup.className = 'option-group';
+                
+                const label = document.createElement('label');
+                label.textContent = key.charAt(0).toUpperCase() + key.slice(1) + ':';
+                
+                const select = document.createElement('select');
+                select.id = `option-${key}`;
+                
+                values.forEach(value => {
+                    const option = document.createElement('option');
+                    option.value = value;
+                    option.textContent = value;
+                    select.appendChild(option);
+                });
+
+                optionGroup.appendChild(label);
+                optionGroup.appendChild(select);
+                optionsContainer.appendChild(optionGroup);
+            }
+        });
+
+        function updateQuantity(change) {
+            const quantityInput = document.getElementById('quantity');
+            const newValue = Math.max(1, parseInt(quantityInput.value) + change);
+            quantityInput.value = newValue;
+        }
+
+        function handleAddToCart() {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            
+            // Gather selected options
+            const selectedOptions = {};
+            Object.keys(currentProduct.options).forEach(key => {
+                const select = document.getElementById(`option-${key}`);
+                if (select) {
+                    selectedOptions[key] = select.value;
+                }
+            });
+
+            // Add to cart
+            if (addToCart(currentProduct.id, quantity, selectedOptions)) {
+                // Show success message
+                const successMessage = document.getElementById('success-message');
+                successMessage.style.display = 'block';
+                
+                // Hide after 3 seconds
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 3000);
+            }
+        }
+    </script>
+</body>
+</html>
